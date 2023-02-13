@@ -2,7 +2,7 @@
     <div class="container-fluid">
 
         <a class="navbar-brand" href="{% url 'home_page' %}">
-            <img src="../static/logo.png" width="50" height="50" alt="">
+            <img src="../static/uniswap.svg" width="50" height="50" alt="">
         </a>
 
         <a class="navbar-brand" href="{% url 'home_page' %}">Event Aggregation Service</a>
@@ -26,10 +26,10 @@
             </form>
             <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Sign Up</a>
+                    <a class="nav-link active" href="{% url 'signup'%}">Sign Up</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Log In</a>
+                    <a class="nav-link active" href="{% url 'login' %}">Log In</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="#">Log Out</a>

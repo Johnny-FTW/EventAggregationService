@@ -33,6 +33,15 @@ EventViewer
    Attending
    -many to many...
 
+USER model
+-username
+-first_name
+-last_name
+-email
+-password
+
+
+
 TEMPLATES:
 -home page/login ,upcoming events-photos
 -register page
@@ -48,6 +57,9 @@ API
 #search events by locality
 
 otazky
-- png file?
+
 - db attending
 - git 
+- logo nejde v sign up
+- zatvorky v title name
+- redirect after login/logout
