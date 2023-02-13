@@ -50,3 +50,4 @@ API
 otazky
 - png file?
 - db attending
+- git 
