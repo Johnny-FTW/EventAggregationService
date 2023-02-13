@@ -30,6 +30,9 @@ EventViewer
      - fk to User with privilegies
      - (own template)
      
+   Attending
+   -many to many...
+
 TEMPLATES:
 -home page/login ,upcoming events-photos
 -register page
@@ -43,3 +46,7 @@ NAV BAR:
 API
 
 #search events by locality
+
+otazky
+- png file?
+- db attending
