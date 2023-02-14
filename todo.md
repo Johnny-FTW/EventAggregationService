@@ -63,3 +63,6 @@ otazky
 - logo nejde v sign up
 - zatvorky v title name
 - redirect after login/logout
+- 
+model
+- title photo
