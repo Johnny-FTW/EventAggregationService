@@ -23,7 +23,7 @@ class Event(Model):
     picture = CharField(max_length=200)
     description = TextField(max_length=1024)
     user = ManyToManyField(User, related_name='attending')
-    title_photo = CharField(max_length=200)
+    title_photo = CharField(max_length=200, null=True)
 
     def __str__(self):
         return self.name
