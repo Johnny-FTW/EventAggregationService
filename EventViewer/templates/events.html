@@ -4,13 +4,25 @@
 
 {% block content %}
 <br>
-<div class="card" style="width: 18rem;">
-  <img src="https://images.squarespace-cdn.com/content/v1/5eb052cf3868fc33f1793f8d/1593180127048-1D7JQQ5GZY8KZK6BSCHV/0.jpg" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">More Info</a>
-  </div>
+
+<div class="row g-4">
+    {% for event in events %}
+
+    <div class="col-md-6 col-lg-3">
+        <div class="card bg-light">
+            <div class="card-body text-center">
+                <img src="{{ event.picture }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ event.name }}</h5>
+                    <p class="card-text">{{ event.description }}</p>
+                    <a href="#" class="btn btn-primary">More Info</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 </div>
+
+
 
 {% endblock %}

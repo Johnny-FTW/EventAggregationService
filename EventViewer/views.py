@@ -6,6 +6,9 @@ from EventViewer.forms import SignUpForm
 
 from django.contrib.auth.views import LoginView
 
+from EventViewer.models import Event
+
+
 # Create your views here.
 
 
@@ -16,8 +19,9 @@ def home_page(request):
 
 
 def event_page(request):
-
-    return render(request, 'events.html')
+    events = Event.objects.all()
+    context = {'events':events}
+    return render(request, 'events.html',context)
 
 
 class SignUpView(generic.CreateView):
