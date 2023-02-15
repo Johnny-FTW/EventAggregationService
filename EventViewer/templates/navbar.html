@@ -23,8 +23,9 @@
                     <a class="nav-link active" href="{% url 'event_page' %}">Events</a>
                 </li>
             </ul>
-            <form class="d-flex me-auto" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex me-auto" role="search" method="POST" action="{% url 'search_events' %}">
+                {% csrf_token %}
+                <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="query">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             <ul class="navbar-nav mr-auto mb-2 mb-lg-0">

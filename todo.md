@@ -60,12 +60,15 @@ API
 #search events by locality
 
 TODO
--after click more info redirect user
+-[x] after click more info redirect user
 -change models: attending
 -class comments
--search
+ -[x] search
 -filters in events page
 - style event_details
 
+-add events
+-delete events
+-edit events
 
 -category button
