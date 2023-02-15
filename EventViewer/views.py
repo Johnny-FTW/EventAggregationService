@@ -21,7 +21,17 @@ def home_page(request):
 def event_page(request):
     events = Event.objects.all()
     context = {'events':events}
+    #if request_method ==
     return render(request, 'events.html',context)
+
+def event_detail_page(request, pk):
+    event = Event.objects.get(id=pk)
+    context = {'event':event}
+    return render(request, 'event_detail.html', context)
+
+
+
+
 
 
 class SignUpView(generic.CreateView):

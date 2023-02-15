@@ -1,8 +1,8 @@
 
 User
- - register
- - login
- - logout
+ -  [x] register 
+ -  [x] login
+ -  [x] logout
  - caterory: Admin, User with privilegies, Basic User
  - User details...
  - List of own events (future, past)
@@ -17,7 +17,7 @@ EventViewer
  - comment events
  - delete events
 
-    Event
+ -[x]  Event 
      - title
      - category
      - city
@@ -33,7 +33,7 @@ EventViewer
    Attending
    -many to many...
 
-USER model
+ -[x] USER model
 -username
 -first_name
 -last_name
@@ -47,7 +47,10 @@ TEMPLATES:
 -register page
 -list of all events, filter
 
-NAV BAR:
+
+-flash messages
+
+-[x] NAV BAR:
 - search # logged in users
   - +button
 
@@ -56,14 +59,13 @@ API
 
 #search events by locality
 
-otazky
+TODO
+-after click more info redirect user
+-change models: attending
+-class comments
+-search
+-filters in events page
+- style event_details
 
-- db attending
-- git 
-- logo nejde v sign up
-- zatvorky v title name
-- redirect after login/logout
-- 
-model
-- title photo
-- 
+
+-category button

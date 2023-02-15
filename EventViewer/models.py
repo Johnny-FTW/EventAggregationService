@@ -24,9 +24,10 @@ class Event(Model):
     description = TextField(max_length=1024)
     user = ManyToManyField(User, related_name='attending')
     title_photo = CharField(max_length=200, null=True)
+    #attending
 
     def __str__(self):
         return self.name
 
 
-#TODO treba spojovaciu tabulku?
+# class comment

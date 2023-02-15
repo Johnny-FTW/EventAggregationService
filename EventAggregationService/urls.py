@@ -16,12 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, reverse_lazy
 
-from EventViewer.views import home_page, event_page, SignUpView
+from EventViewer.views import home_page, event_page, SignUpView, event_detail_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_page, name='home_page'),
     path('events/', event_page, name='event_page'),
+    path('event_detail/<pk>/', event_detail_page, name='event_detail_page'),
 
     #users
     path('accounts/signup/', SignUpView.as_view(), name='signup'),
