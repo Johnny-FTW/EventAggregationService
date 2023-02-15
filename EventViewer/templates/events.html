@@ -20,7 +20,7 @@
                     {% if user.is_authenticated %}
                     <a href="{% url 'event_detail_page' event.id  %}" class="btn btn-primary">More Info</a>
                     {% else %}
-                    <a href="{% url 'login' %}" class="btn btn-primary">More Info</a>
+                    <a href="{% url 'login' %}" class="btn btn-primary">Log In Fot More Info</a>
                     {% endif %}
                 </div>
             </div>
