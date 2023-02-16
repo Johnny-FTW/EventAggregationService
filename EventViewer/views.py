@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
@@ -58,24 +59,37 @@ class EventCreateView(PermissionRequiredMixin, CreateView):
     success_url = reverse_lazy('event_page')
     permission_required = 'viewer.add_event'
 
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.user_creator = self.request.user
+        obj.save()
+        # return reverse_lazy('event_page')
+        #HttpResponseRedirect(self.get_success_url())
+        return super().form_valid(form)
+
 
 class EventUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = 'new_event.html'
     model = Event
     form_class = EventForm
-    success_url = reverse_lazy('event_page')
+
     permission_required = 'viewer.edit_event'
 
-# class EventDeleteView(PermissionRequiredMixin, DeleteView):
-#     template_name = 'movie_confirm_delete.html'
-#     model = Movie
-#     success_url = reverse_lazy('home')
-#     permission_required = 'viewer.delete_movie'
+    def get_success_url(self):
+        return reverse_lazy('event_detail_page', kwargs={'pk': self.object.pk})
 
 
+
+class EventDeleteView(PermissionRequiredMixin, DeleteView):
+    template_name = 'events.html'
+    model = Event
+    success_url = reverse_lazy('event_page')
+    permission_required = 'viewer.delete_event' #TODO
 
 
 class SignUpView(generic.CreateView):
     form_class = SignUpForm
     success_url = reverse_lazy('home_page')
     template_name = 'signup.html'
+
+

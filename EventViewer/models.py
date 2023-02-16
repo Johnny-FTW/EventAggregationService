@@ -23,7 +23,7 @@ class Event(Model):
     picture = CharField(max_length=200)
     description = TextField(max_length=1024)
     user_attend = ManyToManyField(User, related_name='attending_user')
-    user_creator = OneToOneField(User, on_delete=DO_NOTHING, null=True)
+    user_creator = ForeignKey(User, on_delete=DO_NOTHING, null=True)
 
     class Meta:
         ordering = ['start_at']
