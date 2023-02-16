@@ -75,3 +75,12 @@ TODO
 
 -category button
 -carrousel
+
+
+OTAZKY
+-kalendar pri tvoreni eventu
+-pridanie usera k pridanemu eventu
+
+-odlisenie usera od superusera v template is authenticated
+
+-redirect na event details po editovani

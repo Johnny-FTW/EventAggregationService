@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, reverse_lazy
 
-from EventViewer.views import home_page, event_page, SignUpView, event_detail_page, search_events
+from EventViewer.views import home_page, event_page, SignUpView, event_detail_page, search_events, EventCreateView, \
+    EventUpdateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,6 +25,11 @@ urlpatterns = [
     path('events/', event_page, name='event_page'),
     path('event_detail/<pk>/', event_detail_page, name='event_detail_page'),
     path('search_events/', search_events, name='search_events'),
+
+    #add, edit , delete event
+    path('new_event/', EventCreateView.as_view(), name='new_event'),
+    path('event/update/<pk>/', EventUpdateView.as_view(), name='update_event'),
+
 
     #users
     path('accounts/signup/', SignUpView.as_view(), name='signup'),
