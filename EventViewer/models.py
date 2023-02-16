@@ -22,8 +22,7 @@ class Event(Model):
     link = CharField(max_length=200)
     picture = CharField(max_length=200)
     description = TextField(max_length=1024)
-    title_photo = CharField(max_length=200, null=True)
-    user_attend = ManyToManyField(User, related_name='attending_user', null=True)
+    user_attend = ManyToManyField(User, related_name='attending_user')
     user_creator = OneToOneField(User, on_delete=DO_NOTHING, null=True)
 
     class Meta:
@@ -41,7 +40,7 @@ class Comment(Model):
     updated = DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['event', '-created', 'user']
+        ordering = ['-created', 'user']
 
     def __str__(self):
         return f'Event {self.event} commented by {self.user}'

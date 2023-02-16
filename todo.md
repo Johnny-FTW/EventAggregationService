@@ -61,8 +61,8 @@ API
 
 TODO
 -[x] after click more info redirect user
--change models: attending
--class comments
+-[x]change models: attending
+-[x]class comments
  -[x] search
 -filters in events page
 - style event_details
@@ -70,5 +70,8 @@ TODO
 -add events
 -delete events
 -edit events
+-comments events
+-attend events
 
 -category button
+-carrousel
