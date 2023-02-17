@@ -29,7 +29,7 @@ urlpatterns = [
     #add, edit , delete event
     path('new_event/', EventCreateView.as_view(), name='new_event'),
     path('event/update/<pk>/', EventUpdateView.as_view(), name='update_event'),
-    path('event/delete/<pk>/', EventDeleteView.as_view(), name='delete_event'),
+    path('event_detail/<pk>/', EventDeleteView.as_view(), name='delete_event'),
 
 
     #users

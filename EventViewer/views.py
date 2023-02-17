@@ -63,8 +63,6 @@ class EventCreateView(PermissionRequiredMixin, CreateView):
         obj = form.save(commit=False)
         obj.user_creator = self.request.user
         obj.save()
-        # return reverse_lazy('event_page')
-        #HttpResponseRedirect(self.get_success_url())
         return super().form_valid(form)
 
 
@@ -79,12 +77,11 @@ class EventUpdateView(PermissionRequiredMixin, UpdateView):
         return reverse_lazy('event_detail_page', kwargs={'pk': self.object.pk})
 
 
-
 class EventDeleteView(PermissionRequiredMixin, DeleteView):
-    template_name = 'events.html'
+    template_name = 'event_detail.html'
     model = Event
     success_url = reverse_lazy('event_page')
-    permission_required = 'viewer.delete_event' #TODO
+    permission_required = 'viewer.delete_event'
 
 
 class SignUpView(generic.CreateView):

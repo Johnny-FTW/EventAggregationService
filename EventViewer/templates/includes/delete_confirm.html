@@ -8,13 +8,18 @@
 
             <div class="modal-body text-start text-black p-4">
 
-                <h4 class="mb-5" style="color: #35558a;">Are you sure?</h4>
+                <h4 class="mb-5" style="color: #35558a;">Are you sure you want to delete event '{{ event }}'?</h4>
 
             </div>
             <div class="modal-footer d-flex justify-content-center border-top-0 py-4">
-                <form method="POST">
-                    <div class="mbr-section-btn mt-3"><a class="btn btn-lg btn-secondary display-4"
-                                                     href="{% url 'delete_event' event.id %}">Delete Event</a></div>
+                <form method="POST" action="{% url 'delete_event' pk=event.id %}">
+
+                    {% csrf_token %}
+
+                    <input type="hidden" name="next" value="{% url 'event_page' %}">
+                    <button class="btn btn-lg btn-danger display-4" type="submit">Delete Event</button>
+
+
                 </form>
 
             </div>
