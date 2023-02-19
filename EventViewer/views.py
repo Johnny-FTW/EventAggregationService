@@ -42,13 +42,15 @@ def search_events(request):
         search = search.strip()
         if len(search) > 0:
             events = Event.objects.filter(name__contains=search)
-            error_message = ''
+            # error_message = ''
             if len(events) == 0:
-                error_message = "Cant find your event."
-            context = {'search': search, 'events': events, 'error_message': error_message}
+                messages.info(request, "Cant find your event.")
+                # error_message = "Cant find your event."
+            context = {'search': search, 'events': events} #, 'error_message': error_message
             return render(request, 'events.html', context)
         else:
-            context = {'search': search, 'error_message': "Cant find your event."}
+            messages.info(request, "Cant find your event.")
+            context = {'search': search}   #, 'error_message': "Cant find your event."
             return render(request, 'events.html', context)
 
     return render(request, 'home.html')
