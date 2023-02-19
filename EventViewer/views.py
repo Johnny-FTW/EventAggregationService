@@ -18,13 +18,14 @@ from EventViewer.models import Event
 
 
 def home_page(request):
-    return render(request, 'home.html')
+    upcoming_events= Event.objects.filter(id=1)
+    context= {'upcoming_events':upcoming_events}
+    return render(request, 'home.html', context)
 
 
 def event_page(request):
     events = Event.objects.all()
     context = {'events': events}
-    # if request_method ==
     return render(request, 'events.html', context)
 
 
