@@ -78,10 +78,19 @@ TODO
 
 
 OTAZKY
--kalendar pri tvoreni eventu
--redirect na event details po editovani
+
 
 -pridanie usera k pridanemu eventu
 -odlisenie usera od superusera v template is authenticated
 
 -delete
+---------------------------------------------------------------
+TODO
+-delete events
+
+-filters
+-comments
+-attending
+
+-api
+-consume api
