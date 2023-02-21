@@ -3,12 +3,12 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import CreateView, UpdateView, DeleteView
 from EventViewer.forms import SignUpForm, EventForm
-from EventViewer.models import Event, Category
+from EventViewer.models import Event, Category, Comment
 
 
 # Create your views here.
@@ -61,8 +61,54 @@ def filter_events(request):
 @login_required
 def event_detail_page(request, pk):
     event = Event.objects.get(id=pk)
-    context = {'event': event}
+    comments = Comment.objects.all()
+    context = {'event': event, 'comments':comments}
     return render(request, 'event_detail.html', context)
+
+
+
+def add_comment(request, pk):
+    if request.method == 'POST':
+        pk = request.POST.get('event_id')
+        comment = request.POST.get('comment').strip()
+        if len(comment) > 0:
+            Comment.objects.create(
+                event = Event.objects.get(id=pk),
+                user = request.user,
+                comment = comment
+            )
+        else:
+            messages.error(request, "Cant post your comment.")
+    return redirect(f'/event_detail/{pk}/')
+
+def edit_comment(request, pk):
+    comment = Comment.objects.get(id=pk)
+    if request.user == comment.user:
+
+        if request.method == 'POST':
+            comment_text = request.POST.get('comment').strip()
+            comment.comment = comment_text
+            comment.save()
+            return redirect(f'/event_detail/{comment.event.id}/')
+        context = {'comment':comment}
+        return render(request, 'event_detail.html', context)
+    return redirect(f'/event_detail/{comment.event.id}/')
+
+
+def delete_comment(request, pk):
+    comment = Comment.objects.get(id=pk)
+    if request.user == comment.user:
+        if request.method == 'POST':
+            comment.delete()
+            return redirect(f"/event_detail/{comment.event.id}/")
+
+        # else
+        context = {'comment': comment}
+        return render(request, 'comment_confirm_delete.html', context)
+    return redirect(f"/event_detail/{comment.event.id}/")
+
+
+
 
 
 def search_events(request):

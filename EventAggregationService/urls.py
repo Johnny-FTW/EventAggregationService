@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include, reverse_lazy
 
 from EventViewer.views import home_page, event_page, SignUpView, event_detail_page, search_events, EventCreateView, \
-    EventUpdateView, EventDeleteView, filter_events
+    EventUpdateView, EventDeleteView, filter_events, add_comment, edit_comment, delete_comment
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,8 +30,12 @@ urlpatterns = [
     #add, edit , delete event
     path('new_event/', EventCreateView.as_view(), name='new_event'),
     path('event/update/<pk>/', EventUpdateView.as_view(), name='update_event'),
-    path('event_detail/<pk>/', EventDeleteView.as_view(), name='delete_event'),
+    path('delete_event/<pk>/', EventDeleteView.as_view(), name='delete_event'),
 
+    #comments
+    path('add_comment/<pk>/', add_comment, name='add_comment'),
+    path('edit_comment/<pk>', edit_comment, name='edit_comment'),
+    path('delete_comment/<pk>/', delete_comment, name='delete_comment'),
 
     #users
     path('accounts/signup/', SignUpView.as_view(), name='signup'),
