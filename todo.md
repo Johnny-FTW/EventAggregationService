@@ -88,9 +88,11 @@ OTAZKY
 TODO
 -delete events
 
--filters
+-[x] filters
 -comments
 -attending
+
+-paging
 
 -api
 -consume api

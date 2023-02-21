@@ -1,19 +1,13 @@
 from datetime import datetime
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import Q
-from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import CreateView, UpdateView, DeleteView
-
 from EventViewer.forms import SignUpForm, EventForm
-
-from django.contrib.auth.views import LoginView
-
 from EventViewer.models import Event, Category
 
 
@@ -39,10 +33,8 @@ def filter_events(request):
     selected_category = request.POST.get('category', '')
     min_price = request.POST.get('min_price')
     max_price = request.POST.get('max_price')
-
     upcoming_events = request.POST.get('upcoming_events')
     past_events = request.POST.get('past_events')
-
 
     if min_price == '':
         min_price =0
@@ -54,21 +46,15 @@ def filter_events(request):
     else:
         events = Event.objects.filter(Q(price__gt=min_price) & Q(price__lt=max_price))
 
-    if upcoming_events:
+    if upcoming_events and  past_events:
+        events = events.all()
+    elif upcoming_events:
         events = events.filter(start_at__gt=datetime.now())
-    if past_events:
+    elif past_events:
         events = events.filter(start_at__lt=datetime.now())
-
 
     context = {'categories': categories, 'events': events}
     return render(request, 'events.html', context)
-
-
-
-
-
-
-
 
 
 
@@ -91,8 +77,6 @@ def search_events(request):
             return render(request, 'events.html', context)
         else:
             messages.info(request, "Cant find your event.")
-            # context = {'search': search}
-            # return render(request, 'events.html', context)
     return render(request, 'home.html')
 
 
