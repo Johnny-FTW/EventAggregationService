@@ -5,10 +5,9 @@
 {% block content %}
 
 {% include 'includes/delete_confirm.html' %}
-{% include 'includes/edit_comment.html' %}
 
 
-
+<br>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 col-md-12 col-lg-6 image-wrapper md-pb">
@@ -25,25 +24,39 @@
                     <p>End: {{ event.end_at }}</p>
 
                 </div>
-                <p class="mbr-text mbr-fonts-style display-4">
-                    {{ event.description }}</p>
-                <div class="mbr-section-btn mt-3"><a class="btn btn-lg btn-secondary display-4"
-                                                     href="">Attend now!</a></div>
+                <p>
+                    Description: {{ event.description }}</p>
+                <br>
+                <div class="d-flex flex-row-reverse">
 
-                {% if request.user == event.user_creator or request.user.is_superuser %}
-                <div class="mbr-section-btn mt-3"><a class="btn btn-lg btn-secondary display-4 "
-                                                     href="{% url 'update_event' pk=event.id %}">Edit Event</a></div>
 
-                <div class="mbr-section-btn mt-3"><a class="btn btn-lg btn-secondary display-4"
-                                                     href="{% url 'delete_event' pk=event.id %}" data-bs-toggle="modal"
-                                                     data-bs-target="#exampleModal">Delete Event</a></div>
-                {% endif %}
+                    {% if request.user == event.user_creator or request.user.is_superuser %}
+                    <div class="mbr-section-btn mt-3"><a class="btn btn-danger display-4"
+                                                         href="{% url 'delete_event' pk=event.id %}"
+                                                         data-bs-toggle="modal"
+                                                         data-bs-target="#exampleModal">Delete Event</a></div>
+
+                    <div class="mbr-section-btn mt-3" style="margin-right: 10px;"><a
+                            class="btn btn-secondary display-4 "
+                            href="{% url 'update_event' pk=event.id %}">Edit Event</a>
+                    </div>
+
+
+                    {% endif %}
+                    <div class="mbr-section-btn mt-3" style="margin-right: 10px;"><a
+                            class="btn btn-lg btn-success display-4 "
+                            href="">Attend now!</a></div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <br>
+
 {% include 'includes/comments.html' %}
+
+
+
 <br>
 
 {% endblock %}

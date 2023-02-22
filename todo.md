@@ -86,10 +86,9 @@ OTAZKY
 -delete
 ---------------------------------------------------------------
 TODO
--delete events
 
--[x] filters
--comments
+- add event superuser and user+
+-comments edit modal
 
 -attending
 

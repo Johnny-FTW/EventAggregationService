@@ -1,6 +1,8 @@
+
+
 <div class="row d-flex justify-content-center">
     <div class="col-md-8 col-lg-6">
-        <div class="card shadow-0 border" style="background-color: #f0f2f5;">
+        <div class="card shadow-0 border" style="background-color: #C0C0C0">
             <div class="card-body p-4">
                 <div class="form-outline mb-4">
                     <form method="post" action="{% url 'add_comment' pk=event.id %}">
@@ -8,53 +10,71 @@
                         <input name="comment" type="text" id="comment" class="form-control"
                                placeholder="Type comment..."/>
                         <input type="hidden" name="event_id" value="{{ event.id }}">
-                        <input type="submit">
+
+                        <input type="submit" class="btn btn-sm btn-success display-4" style="margin-top: 5px;">
                     </form>
                 </div>
 
                 {% for comment in comments %}
                 <div class="card mb-4">
                     <div class="card-body">
-<!--                        <p>{{ comment.comment }}</p>-->
-
+                        <p>{{ comment.comment }}</p>
 
                         <div class="d-flex justify-content-between">
                             <div class="d-flex flex-row align-items-center">
-                                <p class="small mb-0 ms-2">{{ comment.user }}</p>
+                                <strong><p class="small mb-0 ms-2">{{ comment.user }}</p></strong>
                             </div>
-
-                            {% if request.user == comment.user %}
-
-                            <form method="post" action="{% url 'edit_comment' comment.id %}">
-                                {% csrf_token %}
-<!--                                <input name="comment" type="text" id="" class="form-control"-->
-<!--                               value="{{ comment.comment }}"/>-->
-                                <textarea id="" name="comment" rows="5">{{ comment.comment }}</textarea>
-
-                                <button>Edit comment</button>
-                            </form>
-
-                            <form method="post" action="{% url 'delete_comment' comment.id %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="comment_id" value="{{ comment.id }}">
-                                <button>Delete comment</button>
-                            </form>
-                            {% else %}
-                            <p>{{ comment.comment }}</p>
-                            {% endif %}
-
                             <div class="d-flex flex-row align-items-center">
                                 <p class="small text-muted mb-0">{{ comment.created }}</p>
                             </div>
-
                         </div>
+
+                        {% if request.user == comment.user %}
+                        <div class="d-flex flex-row-reverse">
+                            <form method="post" action="{% url 'delete_comment' comment.id %}"
+                                  style="margin-left: 10px;">
+                                {% csrf_token %}
+                                <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                                <div class="mbr-section-btn mt-3">
+                                    <button class="btn btn-sm btn-danger">Delete</button>
+                                </div>
+                            </form>
+                            <div class="mbr-section-btn mt-3">
+                                <a href="#edit_comment_{{ comment.id }}" class="btn btn-sm btn-secondary">Edit</a>
+                            </div>
+                        </div>
+                        <form method="post" action="{% url 'edit_comment' comment.id %}"
+                              id="edit_comment_{{ comment.id }}">
+                            {% csrf_token %}
+                            <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                            <textarea class="form-control" name="comment">{{ comment.comment }}</textarea>
+                            <div class="text-center mt-4">
+                                <button class="btn btn-success">Save</button>
+                            </div>
+                        </form>
+                        {% endif %}
 
                     </div>
                 </div>
                 {% endfor %}
-                <div class="mbr-section-btn mt-3"><a class="btn btn-lg btn-secondary display-4"
-                                                     href="" data-bs-toggle="modal"
-                                                     data-bs-target="#EditModal">Edit Comment</a></div>
+                <script>
+                    $(document).ready(function () {
+                        // Hide all edit forms initially
+                        $('form[id^="edit_comment_"]').hide();
+                        // Show the edit form when the Edit link is clicked
+                        $('a[href^="#edit_comment_"]').click(function () {
+                            var form_id = $(this).attr('href');
+                            $(form_id).show();
+                            $(form_id + ' textarea').focus();
+                        });
+                        // Hide the edit form when the Save button is clicked
+                        $('form[id^="edit_comment_"] button[type="submit"]').click(function () {
+                            $(this).parents('form').hide();
+                        });
+                    });
+                </script>
+
+
 
             </div>
         </div>

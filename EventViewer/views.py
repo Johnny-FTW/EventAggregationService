@@ -61,7 +61,7 @@ def filter_events(request):
 @login_required
 def event_detail_page(request, pk):
     event = Event.objects.get(id=pk)
-    comments = Comment.objects.all()
+    comments = Comment.objects.filter(event=event).all()
     context = {'event': event, 'comments':comments}
     return render(request, 'event_detail.html', context)
 
@@ -84,7 +84,6 @@ def add_comment(request, pk):
 def edit_comment(request, pk):
     comment = Comment.objects.get(id=pk)
     if request.user == comment.user:
-
         if request.method == 'POST':
             comment_text = request.POST.get('comment').strip()
             comment.comment = comment_text
