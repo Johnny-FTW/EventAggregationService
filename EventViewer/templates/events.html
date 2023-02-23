@@ -17,11 +17,11 @@
                 <img src="{{ event.picture }}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{ event.name }}</h5>
-                    <p class="card-text">{{ event.description }}</p>
+                    <p class="card-text">{{ event.description|slice:":200" }}...</p>
                     {% if user.is_authenticated %}
                     <a href="{% url 'event_detail_page' event.id  %}" class="btn btn-primary">More Info</a>
                     {% else %}
-                    <a href="{% url 'login' %}" class="btn btn-primary">Log In Fot More Info</a>
+                    <a href="{% url 'login' %}" class="btn btn-primary">Log In For More Info</a>
                     {% endif %}
                 </div>
             </div>

@@ -4,58 +4,54 @@
             <h6 class="title">Filters</h6>
         </header>
 
-
-        <!-- card-body.// -->
-
-
         <form method="post" action="{% url 'filter_events' %}">
             {% csrf_token %}
+
             <div class="card-body">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>Min</label>
+
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <label>Min Price</label>
                         <input name="min_price" type="number" class="form-control" id="min_price" placeholder="$">
                     </div>
-                    <div class="form-group col-md-6 text-right">
-                        <label>Max</label>
+                    <div class="form-group col-md-2 text-right">
+                        <label>Max Price</label>
                         <input name="max_price" type="number" class="form-control" id="max_price" placeholder="$">
                     </div>
+
+
+                    <div class="col-md-5">
+                        <label>Category</label>
+                        <select name="category" class="form-select" aria-label="Default select example">
+                            <option selected value="{{ category.id }}">Select category</option>
+                            {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-2 d-flex align-items-center">
+                        <div class="custom-control custom-checkbox">
+                            <input name="upcoming_events" type="checkbox" class="custom-control-input" id="Check1">
+                            <label class="custom-control-label" for="Check1">Upcoming events</label>
+                        </div>
+                        <div class="custom-control custom-checkbox ml-3">
+                            <input name="past_events" type="checkbox" class="custom-control-input" id="Check2">
+                            <label class="custom-control-label" for="Check2">Past events</label>
+                        </div>
+
+                    </div>
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-lg btn-secondary" style="margin-top: 10px">Filter</button>
+                    </div>
+
                 </div>
             </div>
 
-            <select name="category" class="form-select" aria-label="Default select example">
-                <option selected value="{{ category.id }}">Select category</option>
-                {% for category in categories %}
-                <option value="{{ category.id }}">{{ category.name }}</option>
-                {% endfor %}
-            </select>
-            <button type="submit">Filter</button>
-
-            <div class="filter-content">
-                <div class="card-body">
-                    <div class="custom-control custom-checkbox">
-                        <span class="float-right badge badge-light round">52</span>
-                        <input name="upcoming_events" type="checkbox" class="custom-control-input" id="Check1">
-                        <label class="custom-control-label" for="Check1">Upcoming events</label>
-                    </div> <!-- form-check.// -->
-
-                    <div class="custom-control custom-checkbox">
-                        <span class="float-right badge badge-light round">132</span>
-                        <input name="past_events" type="checkbox" class="custom-control-input" id="Check2">
-                        <label class="custom-control-label" for="Check2">Past events</label>
-                    </div> <!-- form-check.// -->
-
-                </div> <!-- card-body.// -->
-            </div>
-
-
         </form>
-    </article> <!-- card-group-item.// -->
-</div> <!-- card.// -->
+    </article>
+</div>
 
 
-<!--#nadchadzajuce-->
-<!--#minule podujatia-->
-
-<!--#popular-->
 

@@ -88,12 +88,18 @@ OTAZKY
 TODO
 
 - add event superuser and user+
--comments edit modal
-
 -attending
-
 -paging
+-3 upcoming events home page
+
+
+STYLE
+
+-style event detail,events
+-style home page
+
+-flash messages
+
 
 -api
-
 -consume api

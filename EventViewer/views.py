@@ -77,6 +77,7 @@ def add_comment(request, pk):
                 user = request.user,
                 comment = comment
             )
+            messages.success(request, "Your comment was posted.")
         else:
             messages.error(request, "Cant post your comment.")
     return redirect(f'/event_detail/{pk}/')
@@ -88,6 +89,7 @@ def edit_comment(request, pk):
             comment_text = request.POST.get('comment').strip()
             comment.comment = comment_text
             comment.save()
+            messages.info(request, "Your comment was edited.")
             return redirect(f'/event_detail/{comment.event.id}/')
         context = {'comment':comment}
         return render(request, 'event_detail.html', context)
@@ -99,6 +101,7 @@ def delete_comment(request, pk):
     if request.user == comment.user:
         if request.method == 'POST':
             comment.delete()
+            messages.info(request, "Your comment was deleted.")
             return redirect(f"/event_detail/{comment.event.id}/")
 
         # else
@@ -136,6 +139,7 @@ class EventCreateView(PermissionRequiredMixin, CreateView):
         obj.user_creator = self.request.user
         obj.save()
         return super().form_valid(form)
+
 
 
 class EventUpdateView(PermissionRequiredMixin, UpdateView):
