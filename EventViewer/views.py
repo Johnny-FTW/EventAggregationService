@@ -71,10 +71,14 @@ def attend_event(request):
     if request.method == 'POST':
         pk = request.POST.get('event_id')
         event = Event.objects.get(id=pk)
-        event.user_attend.add(request.user)
-        messages.success(request, "You are attending this event. Have a fun!")
-        return redirect(f'/event_detail/{pk}/')
-    return render(request, 'home.html')
+        if not request.user in event.user_attend.all():
+            event.user_attend.add(request.user)
+            messages.success(request, "You are attending this event. Have a fun!")
+        else:
+            event.user_attend.remove(request.user)
+            messages.info(request, "You are not attending this event.")
+    return redirect(f'/event_detail/{pk}/')
+
 
 
 

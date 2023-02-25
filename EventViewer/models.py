@@ -26,7 +26,7 @@ class Event(Model):
     user_creator = ForeignKey(User, on_delete=DO_NOTHING, null=True)
 
     class Meta:
-        ordering = ['start_at']
+        ordering = ['-start_at']
 
     def __str__(self):
         return self.name

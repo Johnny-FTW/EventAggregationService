@@ -88,7 +88,7 @@ OTAZKY
 TODO
 
 - add event superuser and user+
--attending
+-- user nemoze edit, delete svojich eventov aj ked ma permission
 -paging
 -3 upcoming events home page
 
