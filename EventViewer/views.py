@@ -66,7 +66,21 @@ def event_detail_page(request, pk):
     return render(request, 'event_detail.html', context)
 
 
+@login_required
+def attend_event(request):
+    if request.method == 'POST':
+        pk = request.POST.get('event_id')
+        event = Event.objects.get(id=pk)
+        event.user_attend.add(request.user)
+        messages.success(request, "You are attending this event. Have a fun!")
+        return redirect(f'/event_detail/{pk}/')
+    return render(request, 'home.html')
 
+
+
+
+
+@login_required
 def add_comment(request, pk):
     if request.method == 'POST':
         pk = request.POST.get('event_id')
@@ -82,6 +96,7 @@ def add_comment(request, pk):
             messages.error(request, "Cant post your comment.")
     return redirect(f'/event_detail/{pk}/')
 
+@login_required
 def edit_comment(request, pk):
     comment = Comment.objects.get(id=pk)
     if request.user == comment.user:
@@ -95,7 +110,7 @@ def edit_comment(request, pk):
         return render(request, 'event_detail.html', context)
     return redirect(f'/event_detail/{comment.event.id}/')
 
-
+@login_required
 def delete_comment(request, pk):
     comment = Comment.objects.get(id=pk)
     if request.user == comment.user:

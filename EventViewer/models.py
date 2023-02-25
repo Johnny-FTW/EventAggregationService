@@ -18,11 +18,11 @@ class Event(Model):
     city = CharField(max_length=50)
     price = FloatField()
     start_at = DateTimeField()
-    end_at = DateTimeField()
+    end_at = DateTimeField(null=True)
     link = CharField(max_length=200)
     picture = CharField(max_length=200)
     description = TextField(max_length=1024)
-    user_attend = ManyToManyField(User, related_name='attending_user')
+    user_attend = ManyToManyField(User, related_name='attending_user', blank=True)
     user_creator = ForeignKey(User, on_delete=DO_NOTHING, null=True)
 
     class Meta:

@@ -7,7 +7,6 @@
 {% include 'includes/delete_confirm.html' %}
 
 
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 col-md-12 col-lg-6 image-wrapper md-pb">
@@ -44,9 +43,18 @@
 
 
                     {% endif %}
-                    <div class="mbr-section-btn mt-3" style="margin-right: 10px;"><a
-                            class="btn btn-lg btn-success display-4 "
-                            href="">Attend now!</a></div>
+                    <form method="POST" action="{% url 'attend_event' %}">
+
+                        {% csrf_token %}
+                        <div class="mbr-section-btn mt-3" style="margin-right: 10px;">
+                            <button class="btn btn-lg btn-success display-4" type="submit" name="event_id"
+                                    value="{{ event.id }}">Attend now!
+                            </button>
+                        </div>
+
+                    </form>
+
+
                 </div>
             </div>
         </div>
@@ -55,7 +63,6 @@
 <br>
 
 {% include 'includes/comments.html' %}
-
 
 
 <br>
