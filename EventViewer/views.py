@@ -27,7 +27,6 @@ def event_page(request):
     return render(request, 'events.html', context)
 
 
-
 def filter_events(request):
     categories = Category.objects.all()
     selected_category = request.POST.get('category', '')
@@ -57,7 +56,6 @@ def filter_events(request):
     return render(request, 'events.html', context)
 
 
-
 @login_required
 def event_detail_page(request, pk):
     event = Event.objects.get(id=pk)
@@ -80,10 +78,6 @@ def attend_event(request):
     return redirect(f'/event_detail/{pk}/')
 
 
-
-
-
-
 @login_required
 def add_comment(request, pk):
     if request.method == 'POST':
@@ -100,6 +94,7 @@ def add_comment(request, pk):
             messages.error(request, "Cant post your comment.")
     return redirect(f'/event_detail/{pk}/')
 
+
 @login_required
 def edit_comment(request, pk):
     comment = Comment.objects.get(id=pk)
@@ -114,6 +109,7 @@ def edit_comment(request, pk):
         return render(request, 'event_detail.html', context)
     return redirect(f'/event_detail/{comment.event.id}/')
 
+
 @login_required
 def delete_comment(request, pk):
     comment = Comment.objects.get(id=pk)
@@ -127,9 +123,6 @@ def delete_comment(request, pk):
         context = {'comment': comment}
         return render(request, 'comment_confirm_delete.html', context)
     return redirect(f"/event_detail/{comment.event.id}/")
-
-
-
 
 
 def search_events(request):

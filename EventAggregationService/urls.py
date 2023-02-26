@@ -43,4 +43,7 @@ urlpatterns = [
     path('accounts/signup/', SignUpView.as_view(), name='signup'),
     path('accounts/', include('django.contrib.auth.urls')),
 
+    #API
+    path('api/', include('API.urls', namespace='api')),
+
 ]

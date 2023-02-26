@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+{% for event in all_events %}
+
+<h5>{{event.name}}</h5>
+
+
+
+{% endfor %}
+
+{% endblock %}
