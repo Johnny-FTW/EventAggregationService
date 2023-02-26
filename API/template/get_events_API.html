@@ -1,15 +1,20 @@
 {% extends 'base.html' %}
 
-{% block title %} Home {% endblock %}
+{% block title %}Get API{% endblock %}
 
 {% block content %}
 
-{% for event in all_events %}
+<br>
+<h3>Getting API data from www.ticketmaster.com</h3>
+<form method="post" action="{% url 'api:get_events'%}">
+    {% csrf_token %}
+    <label>Select page in range 0-49</label>
+    <input type="hidden" name="page" value="">
+    <input class="form-control" name="page">
+    <div class="text-center mt-4">
+        <button class="btn btn-success">Get API</button>
+    </div>
+</form>
 
-<h5>{{event.name}}</h5>
-
-
-
-{% endfor %}
 
 {% endblock %}

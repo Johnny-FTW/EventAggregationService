@@ -126,6 +126,7 @@ def delete_comment(request, pk):
 
 
 def search_events(request):
+    categories = Category.objects.all()
     if request.method == 'POST':
         search = request.POST.get('query')
         search = search.strip()
@@ -133,7 +134,7 @@ def search_events(request):
             events = Event.objects.filter(name__contains=search)
             if len(events) == 0:
                 messages.info(request, "Cant find your event.")
-            context = {'search': search, 'events': events}
+            context = {'search': search, 'events': events, 'categories':categories}
             return render(request, 'events.html', context)
         else:
             messages.info(request, "Cant find your event.")

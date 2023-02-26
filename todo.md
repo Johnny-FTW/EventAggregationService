@@ -87,8 +87,11 @@ OTAZKY
 ---------------------------------------------------------------
 TODO
 
-- add event superuser and user+
+- add event -superuser and user+
+- get api -superuser
 -- user nemoze edit, delete svojich eventov aj ked ma permission
+- event page upcoming events zoradit
+
 -paging
 -3 upcoming events home page
 
@@ -102,4 +105,5 @@ STYLE
 
 
 -api
--consume api
+-future api
+

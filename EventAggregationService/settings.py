@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     #our apps
     'EventViewer',
     'API',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
