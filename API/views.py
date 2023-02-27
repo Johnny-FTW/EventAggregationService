@@ -1,15 +1,19 @@
 from datetime import datetime
+
+from django.contrib.auth.decorators import login_required
 from django.contrib.sites import requests
 from django.contrib import messages
 from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics, permissions, status
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from API.serializers import EventSerializer
 from EventViewer.models import Event, Category
 import requests
 
 # Create your views here.
 
-
+@login_required
 def get_events(request):
     if request.method == 'POST':
         try:
@@ -69,3 +73,35 @@ class EventListView(generics.ListAPIView):
 class EventDetailView(generics.RetrieveAPIView):
     queryset = Event.objects.filter(start_at__gt=datetime.now())
     serializer_class = EventSerializer
+
+
+
+class EventListApiView(APIView):
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        queryset = Event.objects.filter(start_at__gt=datetime.now())
+        serializer = EventSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request, *args, **kwargs):
+        data = {
+            'name': request.data.get('name'),
+            'category': request.data.get('category'),
+            'city': request.data.get('city'),
+            'price': request.data.get('price'),
+            'start_at': request.data.get('start_at'),
+            'link': request.data.get('link'),
+            'picture': request.data.get('picture'),
+            'description': request.data.get('description'),
+            'user_creator': request.user,
+
+        }
+        serializer = EventSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#update,delete

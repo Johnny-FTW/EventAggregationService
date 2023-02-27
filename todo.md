@@ -88,17 +88,16 @@ OTAZKY
 TODO
 
 - add event -superuser and user+
-- get api -superuser
 -- user nemoze edit, delete svojich eventov aj ked ma permission
-- event page upcoming events zoradit
+- 
 
--paging
--3 upcoming events home page
+
+-session ukladanie filtrov
+-paging filters
 
 
 STYLE
 
--style event detail,events
 -style home page
 
 -flash messages

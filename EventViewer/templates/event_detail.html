@@ -8,63 +8,78 @@
 
 
 <div class="container">
+    <br>
     <div class="row justify-content-center">
-        <div class="col-12 col-md-12 col-lg-6 image-wrapper md-pb">
-            <br>
-            <img class="w-50" src="{{ event.picture }}" alt="img">
-        </div>
+
+        <h1 class="mbr-section-title mbr-fonts-style mb-5 text-center"><strong>{{ event.name }}</strong></h1>
         <div class="col-12 col-md-12 col-lg">
-            <div class="text-wrapper align-left">
-                <h1 class="mbr-section-title mbr-fonts-style mb-5 display-1"><strong>{{ event.name }}</strong></h1>
-                <div>
-                    <p>Category: {{ event.category }}</p>
-                    <p>Locality: {{ event.city }}</p>
-                    <p>Price: ${{ event.price }}</p>
-                    <p>Starting at: {{ event.start_at }}</p>
-                    {% if event.end_at %}
-                    <p>End: {{ event.end_at }}</p>
-                    {% endif %}
+
+            <div class="row align-items-center">
+                <div class="col-md-6 image-wrapper md-pb d-flex align-items-right justify-content-end">
+                    <br>
+                    <img class="rounded w-50 center-block" src="{{ event.picture }}" alt="img" >
                 </div>
-                <p>
-                    Description: {{ event.description }}</p>
-                <br>
-                <div class="d-flex flex-row-reverse">
-                    {% if request.user == event.user_creator or request.user.is_superuser %}
-                    <div class="mbr-section-btn mt-3"><a class="btn btn-danger display-4"
-                                                         href="{% url 'delete_event' pk=event.id %}"
-                                                         data-bs-toggle="modal"
-                                                         data-bs-target="#exampleModal">Delete Event</a></div>
-
-                    <div class="mbr-section-btn mt-3" style="margin-right: 10px;"><a
-                            class="btn btn-secondary display-4 "
-                            href="{% url 'update_event' pk=event.id %}">Edit Event</a>
+                <div class="col-md-6 text-wrapper align-right">
+                    <div>
+                        <p><strong>Category:</strong> {{ event.category }}</p>
+                        <p><strong>Locality:</strong> {{ event.city }}</p>
+                        <p><strong>Price:</strong> ${{ event.price }}</p>
+                        <p><strong>Starting at:</strong> {{ event.start_at }}</p>
+                        {% if event.end_at %}
+                        <p><strong>End:</strong> {{ event.end_at }}</p>
+                        {% endif %}
+                        {% if event.user_attend %}
+                        <p><strong>Attendance:</strong> {{ event.user_attend.count }}</p>
+                        {% endif %}
                     </div>
-
-                    {% endif %}
-
-                    {% if request.user in event.user_attend.all %}
-
-                    <form method="POST" action="{% url 'attend_event' %}">
-                        {% csrf_token %}
-                        <div class="mbr-section-btn mt-3" style="margin-right: 10px;">
-                            <button class="btn btn-lg btn-danger display-4" type="submit" name="event_id"
-                                    value="{{ event.id }}">Cancel Attending
-                            </button>
-                        </div>
-                    </form>
-                    {% else %}
-                    <form method="POST" action="{% url 'attend_event' %}">
-                        {% csrf_token %}
-                        <div class="mbr-section-btn mt-3" style="margin-right: 10px;">
-                            <button class="btn btn-lg btn-success display-4" type="submit" name="event_id"
-                                    value="{{ event.id }}">Attend now!
-                            </button>
-                        </div>
-                    </form>
-                    {% endif %}
-
+                    <p><strong>Description:</strong> {{ event.description }}</p>
                 </div>
             </div>
+
+            <br>
+
+
+            <div class="d-flex flex-row-reverse">
+                {% if request.user == event.user_creator or request.user.is_superuser %}
+                <div class="mbr-section-btn mt-3"><a class="btn btn-danger display-4"
+                                                     href="{% url 'delete_event' pk=event.id %}"
+                                                     data-bs-toggle="modal"
+                                                     data-bs-target="#exampleModal">Delete Event</a></div>
+
+                <div class="mbr-section-btn mt-3" style="margin-right: 10px;"><a
+                        class="btn btn-secondary display-4 "
+                        href="{% url 'update_event' pk=event.id %}">Edit Event</a>
+                </div>
+
+                {% endif %}
+
+
+                {% if request.user in event.user_attend.all %}
+                <div class="col-md-6 text-center">
+                <form method="POST" action="{% url 'attend_event' %}">
+                    {% csrf_token %}
+                    <div class="mbr-section-btn mt-3" style="margin-right: 10px;">
+                        <button class="btn btn-lg btn-danger display-4" type="submit" name="event_id"
+                                value="{{ event.id }}">Cancel Attending
+                        </button>
+                    </div>
+                </form>
+                    </div>
+                {% else %}
+                <div class="col-md-6 text-center">
+                <form method="POST" action="{% url 'attend_event' %}">
+                    {% csrf_token %}
+                    <div class="mbr-section-btn mt-3" style="margin-right: 10px;">
+                        <button class="btn btn-lg btn-success display-4" type="submit" name="event_id"
+                                value="{{ event.id }}">Attend now!
+                        </button>
+                    </div>
+                </form>
+                    </div>
+                {% endif %}
+
+            </div>
+
         </div>
     </div>
 </div>

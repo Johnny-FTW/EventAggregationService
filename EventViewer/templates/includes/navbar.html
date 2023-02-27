@@ -25,10 +25,11 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="{% url 'new_event' %}">Add Event</a>
                 </li>
-
+                {% if request.user.is_superuser %}
                 <li class="nav-item">
                     <a class="nav-link active" href="{% url 'api:get_events' %}">Get API</a>
                 </li>
+                {% endif %}
 
             </ul>
 

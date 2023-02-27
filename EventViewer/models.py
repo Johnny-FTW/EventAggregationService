@@ -1,9 +1,11 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group, Permission
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models import *
 
 
 # Create your models here.
+
 
 
 class Category(Model):
@@ -44,4 +46,5 @@ class Comment(Model):
 
     def __str__(self):
         return f'Event {self.event} commented by {self.user}'
+
 

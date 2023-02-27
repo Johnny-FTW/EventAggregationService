@@ -2,6 +2,7 @@ from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -15,15 +16,19 @@ from EventViewer.models import Event, Category, Comment
 
 
 def home_page(request):
-    upcoming_events= Event.objects.filter(id=1)
-    context= {'upcoming_events':upcoming_events}
+    events= Event.objects.filter(start_at__gte= datetime.now())[:3]
+    context= {'events':events}
     return render(request, 'home.html', context)
 
 
 def event_page(request):
     categories = Category.objects.all()
-    events = Event.objects.all()
-    context = {'events': events,'categories':categories}
+    events = Event.objects.filter(start_at__gte=datetime.now())
+    paginator = Paginator(events, 20)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {'page_obj': page_obj, 'categories': categories}
     return render(request, 'events.html', context)
 
 
