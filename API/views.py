@@ -104,4 +104,67 @@ class EventListApiView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-#update,delete
+
+
+class EventDetailApiView(APIView):
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self, event_id):
+
+        try:
+            return Event.objects.get(id=event_id)
+        except Event.DoesNotExist:
+            return None
+
+    def get(self, request, event_id, *args, **kwargs):
+
+        event_instance = self.get_object(event_id)
+        if not event_instance:
+            return Response(
+                {"res": "Object with event id does not exists"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        serializer = EventSerializer(event_instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def put(self, request, event_id, *args, **kwargs):
+
+        event_instance = self.get_object(event_id, request.user.id)
+        if not event_instance:
+            return Response(
+                {"res": "Object with event id does not exists"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        data = {
+            'name': request.data.get('name'),
+            'category': request.data.get('category'),
+            'city': request.data.get('city'),
+            'price': request.data.get('price'),
+            'start_at': request.data.get('start_at'),
+            'link': request.data.get('link'),
+            'picture': request.data.get('picture'),
+            'description': request.data.get('description'),
+            'user_creator': request.user,
+        }
+        serializer = EventSerializer(instance = event_instance, data=data, partial = True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, event_id, *args, **kwargs):
+
+        event_instance = self.get_object(event_id)
+        if not event_instance:
+            return Response(
+                {"res": "Object with event id does not exists"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        event_instance.delete()
+        return Response(
+            {"res": "Object deleted!"},
+            status=status.HTTP_200_OK
+        )
+

@@ -89,7 +89,6 @@ TODO
 
 - add event -superuser and user+
 -- user nemoze edit, delete svojich eventov aj ked ma permission
-- 
 
 
 -session ukladanie filtrov

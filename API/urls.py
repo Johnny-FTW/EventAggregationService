@@ -1,7 +1,7 @@
 from django.urls import path
 
 from API import views
-
+from API.views import EventDetailApiView, EventListApiView
 
 app_name = 'api'
 
@@ -10,5 +10,6 @@ urlpatterns = [
 
     path('events/', views.EventListView.as_view(), name='event_list'),
     path('events/<pk>/',views.EventDetailView.as_view(), name='event_detail'),
-
+    path('', EventListApiView.as_view(), name = 'list_api_view'),
+    path('<int:event_id>/', EventDetailApiView.as_view()),
     ]
