@@ -92,7 +92,8 @@ TODO
 
 
 -session ukladanie filtrov
--paging filters
+
+-paging filters,search
 
 
 STYLE
@@ -102,6 +103,6 @@ STYLE
 -flash messages
 
 
--api
--future api
+-api update
+
 

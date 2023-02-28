@@ -3,7 +3,7 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites import requests
 from django.contrib import messages
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -167,4 +167,18 @@ class EventDetailApiView(APIView):
             {"res": "Object deleted!"},
             status=status.HTTP_200_OK
         )
+
+
+def detail_api_view(request):
+    if request.method == 'POST':
+        try:
+            pk = request.POST.get('id')
+            event = Event.objects.filter(id=pk)
+            if event:
+                return redirect(f'/api/{pk}/')
+            else:
+                messages.error(request, "Cant find your event API.")
+        except:
+            messages.error(request, "Select valid ID")
+    return render(request, 'get_events_API.html')
 
