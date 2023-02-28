@@ -1,4 +1,3 @@
-
 <div class="card">
     <article class="card-group-item">
         <header class="card-header">
@@ -13,32 +12,46 @@
                 <div class="row">
                     <div class="form-group col-md-2">
                         <label>Min Price</label>
-                        <input name="min_price" type="number" class="form-control" id="min_price" placeholder="$">
+                        <input name="min_price" type="number" class="form-control" id="min_price"
+                               placeholder="{{ min_price }}">
                     </div>
                     <div class="form-group col-md-2 text-right">
                         <label>Max Price</label>
-                        <input name="max_price" type="number" class="form-control" id="max_price" placeholder="$">
+                        <input name="max_price" type="number" class="form-control" id="max_price"
+                               placeholder="{{ max_price }}">
                     </div>
 
 
                     <div class="col-md-5">
                         <label>Category</label>
                         <select name="category" class="form-select" aria-label="Default select example">
-                            <option selected value="{{ category.id }}">Select category</option>
+                            <option value="">Select category</option>
                             {% for category in categories %}
+                            {% if category.id == selected_category %}
+                            <option value="{{ category.id }}" selected>{{ category.name }}</option>
+                            {% else %}
                             <option value="{{ category.id }}">{{ category.name }}</option>
+                            {% endif %}
                             {% endfor %}
                         </select>
-
                     </div>
 
                     <div class="col-md-2 d-flex align-items-center">
                         <div class="custom-control custom-checkbox">
+                            {% if upcoming_events %}
+                            <input name="upcoming_events" type="checkbox" class="custom-control-input" id="Check1"
+                                   checked>
+                            {% else %}
                             <input name="upcoming_events" type="checkbox" class="custom-control-input" id="Check1">
+                            {% endif %}
                             <label class="custom-control-label" for="Check1">Upcoming events</label>
                         </div>
                         <div class="custom-control custom-checkbox ml-3">
+                            {% if past_events %}
+                            <input name="past_events" type="checkbox" class="custom-control-input" id="Check2" checked>
+                            {% else %}
                             <input name="past_events" type="checkbox" class="custom-control-input" id="Check2">
+                            {% endif %}
                             <label class="custom-control-label" for="Check2">Past events</label>
                         </div>
 

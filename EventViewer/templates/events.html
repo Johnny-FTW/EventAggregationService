@@ -17,7 +17,13 @@
                 <img src="{{ event.picture }}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{ event.name }}</h5>
-                    <p class="card-text">{{ event.description|slice:":200" }}...</p>
+
+                    {% if event.description|length < 150 %}
+                    <p class="card-text">{{ event.description}}</p>
+                    {% else %}
+                    <p class="card-text">{{ event.description|slice:":150" }}...</p>
+                    {% endif %}
+
                     <h6 class="card-title">attendance: {{ event.user_attend.count }}</h6>
                     {% if user.is_authenticated %}
                     <a href="{% url 'event_detail_page' event.id  %}" class="btn btn-primary">More Info</a>
@@ -31,7 +37,8 @@
     {% endfor %}
 
 
-<div class="pagination">
+
+    <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
             <a href="?page=1">&laquo; first</a>
@@ -47,13 +54,9 @@
             <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
+    </div>
+
 </div>
-
-
-</div>
-
-
-
 
 
 {% endblock %}

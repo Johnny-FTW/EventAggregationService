@@ -2,7 +2,7 @@ from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -21,43 +21,86 @@ def home_page(request):
     return render(request, 'home.html', context)
 
 
+def paginate_queryset(request, queryset, page_size):
+    paginator = Paginator(queryset, page_size)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return page_obj
+
+
 def event_page(request):
     categories = Category.objects.all()
     events = Event.objects.filter(start_at__gte=datetime.now())
-    paginator = Paginator(events, 20)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    page_obj = paginate_queryset(request, events, 20)
 
     context = {'page_obj': page_obj, 'categories': categories}
     return render(request, 'events.html', context)
 
 
-def filter_events(request):
+def search_events(request):
     categories = Category.objects.all()
-    selected_category = request.POST.get('category', '')
-    min_price = request.POST.get('min_price')
-    max_price = request.POST.get('max_price')
-    upcoming_events = request.POST.get('upcoming_events')
-    past_events = request.POST.get('past_events')
+    if request.method == 'POST':
+        search = request.POST.get('query')
+        search = search.strip()
+        if len(search) > 0:
+            events = Event.objects.filter(name__contains=search)
+            page_obj = paginate_queryset(request, events, 20)
+            if len(events) == 0:
+                messages.info(request, "Can't find your event.")
+            context = {'search': search, 'page_obj': page_obj, 'categories': categories}
+            return render(request, 'events.html', context)
+        else:
+            messages.info(request, "Can't find your event.")
+    return render(request, 'events.html')
 
-    if min_price == '':
-        min_price =0
-    if max_price == '':
-        max_price =10000
 
+def filter_events(request):
+    selected_category = request.session.get('selected_category', '')
+    min_price = request.session.get('min_price', '')
+    max_price = request.session.get('max_price', '')
+    upcoming_events = request.session.get('upcoming_events', '')
+    past_events = request.session.get('past_events', '')
+
+    categories = Category.objects.all()
+
+    if request.method == 'POST':
+        selected_category = request.POST.get('category', '')
+        min_price = request.POST.get('min_price', '')
+        max_price = request.POST.get('max_price', '')
+        upcoming_events = request.POST.get('upcoming_events', '')
+        past_events = request.POST.get('past_events', '')
+
+        request.session['selected_category'] = selected_category
+        request.session['min_price'] = min_price
+        request.session['max_price'] = max_price
+        request.session['upcoming_events'] = upcoming_events
+        request.session['past_events'] = past_events
+
+    events = Event.objects.all()
     if selected_category:
-        events = Event.objects.filter(Q(price__gt=min_price)& Q(price__lt=max_price) & Q(category=selected_category))
-    else:
-        events = Event.objects.filter(Q(price__gt=min_price) & Q(price__lt=max_price))
+        events = events.filter(category=selected_category)
+    if min_price:
+        events = events.filter(price__gte=min_price)
+    if max_price:
+        events = events.filter(price__lte=max_price)
+    if upcoming_events and past_events:
+        events = events
 
-    if upcoming_events and  past_events:
-        events = events.all()
     elif upcoming_events:
         events = events.filter(start_at__gt=datetime.now())
     elif past_events:
         events = events.filter(start_at__lt=datetime.now())
 
-    context = {'categories': categories, 'events': events}
+    page_obj = paginate_queryset(request, events, 20)
+    context = {
+        'categories': categories,
+        'page_obj': page_obj,
+        'selected_category': selected_category,
+        'min_price': min_price,
+        'max_price': max_price,
+        'upcoming_events': upcoming_events,
+        'past_events': past_events,
+    }
     return render(request, 'events.html', context)
 
 
@@ -130,22 +173,6 @@ def delete_comment(request, pk):
     return redirect(f"/event_detail/{comment.event.id}/")
 
 
-def search_events(request):
-    categories = Category.objects.all()
-    if request.method == 'POST':
-        search = request.POST.get('query')
-        search = search.strip()
-        if len(search) > 0:
-            events = Event.objects.filter(name__contains=search)
-            if len(events) == 0:
-                messages.info(request, "Cant find your event.")
-            context = {'search': search, 'events': events, 'categories':categories}
-            return render(request, 'events.html', context)
-        else:
-            messages.info(request, "Cant find your event.")
-    return render(request, 'home.html')
-
-
 class EventCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'new_event.html'
     form_class = EventForm
@@ -159,12 +186,12 @@ class EventCreateView(PermissionRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-
 class EventUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = 'new_event.html'
     model = Event
     form_class = EventForm
     permission_required = 'viewer.edit_event'
+
     def get_success_url(self):
         return reverse_lazy('event_detail_page', kwargs={'pk': self.object.pk})
 

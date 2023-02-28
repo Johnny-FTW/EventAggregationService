@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites import requests
 from django.contrib import messages

@@ -91,9 +91,8 @@ TODO
 -- user nemoze edit, delete svojich eventov aj ked ma permission
 
 
--session ukladanie filtrov
-
--paging filters,search
+-session ukladanie categories
+-paging search
 
 
 STYLE
