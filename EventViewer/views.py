@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Q
+from django.db.models import Q, Max, Count
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
@@ -17,7 +17,8 @@ from EventViewer.models import Event, Category, Comment
 
 def home_page(request):
     events= Event.objects.filter(start_at__gte= datetime.now())[:3]
-    context= {'events':events}
+    event_tips = Event.objects.filter(start_at__gte=datetime.now()).annotate(num_attendees=Count('user_attend')).order_by('-num_attendees')[:4]
+    context= {'events':events, 'event_tips': event_tips}
     return render(request, 'home.html', context)
 
 
@@ -42,16 +43,19 @@ def search_events(request):
     if request.method == 'POST':
         search = request.POST.get('query')
         search = search.strip()
-        if len(search) > 0:
-            events = Event.objects.filter(name__contains=search)
-            page_obj = paginate_queryset(request, events, 20)
-            if len(events) == 0:
-                messages.info(request, "Can't find your event.")
-            context = {'search': search, 'page_obj': page_obj, 'categories': categories}
-            return render(request, 'events.html', context)
-        else:
+        request.session['search'] = search
+    else:
+        search = request.session['search']
+    if len(search) > 0:
+        events = Event.objects.filter(name__contains=search)
+        page_obj = paginate_queryset(request, events, 20)
+        if len(events) == 0:
             messages.info(request, "Can't find your event.")
-    return render(request, 'events.html')
+        context = {'search': search, 'page_obj': page_obj, 'categories': categories}
+        return render(request, 'events.html', context)
+    else:
+        messages.info(request, "Can't find your event.")
+    return render(request, 'events.html', {'categories': categories})
 
 
 def filter_events(request):
@@ -91,17 +95,23 @@ def filter_events(request):
     elif past_events:
         events = events.filter(start_at__lt=datetime.now())
 
+    if not selected_category:
+        selected_category = 0
+
     page_obj = paginate_queryset(request, events, 20)
     context = {
         'categories': categories,
         'page_obj': page_obj,
-        'selected_category': selected_category,
+        'selected_category': int(selected_category),
         'min_price': min_price,
         'max_price': max_price,
         'upcoming_events': upcoming_events,
         'past_events': past_events,
     }
     return render(request, 'events.html', context)
+
+
+
 
 
 @login_required

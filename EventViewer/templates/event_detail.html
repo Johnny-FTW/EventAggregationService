@@ -41,18 +41,7 @@
 
 
             <div class="d-flex flex-row-reverse">
-                {% if request.user == event.user_creator or request.user.is_superuser %}
-                <div class="mbr-section-btn mt-3"><a class="btn btn-danger display-4"
-                                                     href="{% url 'delete_event' pk=event.id %}"
-                                                     data-bs-toggle="modal"
-                                                     data-bs-target="#exampleModal">Delete Event</a></div>
 
-                <div class="mbr-section-btn mt-3" style="margin-right: 10px;"><a
-                        class="btn btn-secondary display-4 "
-                        href="{% url 'update_event' pk=event.id %}">Edit Event</a>
-                </div>
-
-                {% endif %}
 
 
                 {% if request.user in event.user_attend.all %}
@@ -80,7 +69,18 @@
                 {% endif %}
 
             </div>
+                {% if request.user == event.user_creator or request.user.is_superuser %}
+                <div class="mbr-section-btn mt-3"><a class="btn btn-danger display-4"
+                                                     href="{% url 'delete_event' pk=event.id %}"
+                                                     data-bs-toggle="modal"
+                                                     data-bs-target="#exampleModal">Delete Event</a></div>
 
+                <div class="mbr-section-btn mt-3" style="margin-right: 10px;"><a
+                        class="btn btn-secondary display-4 "
+                        href="{% url 'update_event' pk=event.id %}">Edit Event</a>
+                </div>
+
+                {% endif %}
         </div>
     </div>
 </div>

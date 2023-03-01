@@ -37,8 +37,8 @@
     {% endfor %}
 
 
-
-    <div class="pagination">
+    {% if page_obj %}
+    <div class="pagination-wrapper" style="text-align: center;">
     <span class="step-links">
         {% if page_obj.has_previous %}
             <a href="?page=1">&laquo; first</a>
@@ -55,6 +55,8 @@
         {% endif %}
     </span>
     </div>
+    {% endif %}
+
 
 </div>
 

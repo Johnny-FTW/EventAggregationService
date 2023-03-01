@@ -27,7 +27,7 @@
                         <select name="category" class="form-select" aria-label="Default select example">
                             <option value="">Select category</option>
                             {% for category in categories %}
-                            {% if category.id == selected_category %}
+                            {% if  selected_category == category.id %}
                             <option value="{{ category.id }}" selected>{{ category.name }}</option>
                             {% else %}
                             <option value="{{ category.id }}">{{ category.name }}</option>

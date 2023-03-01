@@ -130,7 +130,7 @@ class EventDetailApiView(APIView):
 
     def put(self, request, event_id, *args, **kwargs):
 
-        event_instance = self.get_object(event_id, request.user.id)
+        event_instance = self.get_object(event_id)
         if not event_instance:
             return Response(
                 {"res": "Object with event id does not exists"},

@@ -91,17 +91,15 @@ TODO
 -- user nemoze edit, delete svojich eventov aj ked ma permission
 
 
--session ukladanie categories
--paging search
+
+
 
 
 STYLE
 
--style home page
-
--flash messages
 
 
--api update
 
+
+-unique email
 
