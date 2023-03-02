@@ -1,18 +1,15 @@
-from django.contrib.auth.models import User, Group, Permission
-from django.contrib.contenttypes.models import ContentType
-from django.db import models
+from django.contrib.auth.models import User
 from django.db.models import *
 
 
 # Create your models here.
-
-
 
 class Category(Model):
     name = CharField(max_length=50)
 
     def __str__(self):
         return self.name
+
 
 class Event(Model):
     name = CharField(max_length=50)

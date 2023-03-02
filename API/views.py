@@ -74,10 +74,9 @@ class EventDetailView(generics.RetrieveAPIView):
     serializer_class = EventSerializer
 
 
-
 class EventListApiView(APIView):
 
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]
 
     def get(self, request, *args, **kwargs):
         queryset = Event.objects.filter(start_at__gt=datetime.now())
@@ -104,10 +103,9 @@ class EventListApiView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 class EventDetailApiView(APIView):
 
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]
 
     def get_object(self, event_id):
 
