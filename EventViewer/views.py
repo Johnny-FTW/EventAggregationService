@@ -1,9 +1,9 @@
 from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.db.models import Q, Max, Count
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.core.paginator import Paginator
+from django.db.models import Count
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
@@ -99,6 +99,8 @@ def filter_events(request):
         selected_category = 0
 
     page_obj = paginate_queryset(request, events, 20)
+    if not page_obj:
+        messages.info(request, "Can't find your event.")
     context = {
         'categories': categories,
         'page_obj': page_obj,
