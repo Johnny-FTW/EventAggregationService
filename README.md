@@ -68,14 +68,17 @@ Main system features:
 * Events search engine.
 * API for other websites / services that want to present events.
 
-General Guidelines
+General Guidelines:
 * Website development using Django and Django REST Framework as an API.
 * Introducing the division into models, views and controllers in the application and placing the appropriate logic in each of them.
 * Securing access to the application and functionality by using django.contrib.auth
 
+Screenshots:
 
 
-
+![image](https://raw.githubusercontent.com/Johnny-FTW/EventAggregationService/main/imgs/Screenshot_1.png)
+![image](https://raw.githubusercontent.com/Johnny-FTW/EventAggregationService/main/imgs/Screenshot_2.png)
+![image](https://raw.githubusercontent.com/Johnny-FTW/EventAggregationService/main/imgs/Screenshot_3.png)
 
 
 
