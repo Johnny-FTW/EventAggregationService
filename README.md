@@ -42,18 +42,16 @@ user can sign up. The website also have events search engine
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#requirements">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## About The Project
 
@@ -88,15 +86,65 @@ Screenshots:
 <br>
 ![image](https://raw.githubusercontent.com/Johnny-FTW/EventAggregationService/main/imgs/Screenshot_3.png)
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Getting Started
+
+To get a local copy up and running follow these simple example steps.
+
+### Requirements
+
+List of requirements:
+* asgiref==3.6.0
+* certifi==2022.12.7
+* charset-normalizer==3.0.1
+* Django==4.1.6
+* djangorestframework==3.14.0
+* idna==3.4
+* pytz==2022.7.1
+* requests==2.28.2
+* sqlparse==0.4.3
+* tzdata==2022.7
+* urllib3==1.26.14
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Installation
+
+Below is an example of how to install and set up this app.
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/Johnny-FTW/EventAggregationService.git
+   ```
+2. Install project dependencies
+   ```sh
+   pip install -r requirements.txt
+   ```
+3. Then simply apply the migrations
+   ```sh
+   python manage.py migrate
+   ```
+4. You can now run the development server
+   ```sh
+   python manage.py runserver
+   ```
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
+## Contact
 
+- Jan Hatapka - [Linkedin](https://www.linkedin.com/in/jan-hatapka-6b970b205/) - mail: jan.hatapka@gmail.com 
+- Michael Klimik
 
+Project Link: [https://github.com/Johnny-FTW/EventAggregationService](https://github.com/Johnny-FTW/EventAggregationService)
 
-
-
-
-
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
