@@ -89,6 +89,8 @@ Screenshots:
 ![image](https://raw.githubusercontent.com/Johnny-FTW/EventAggregationService/main/imgs/Screenshot_2.png)
 <br>
 ![image](https://raw.githubusercontent.com/Johnny-FTW/EventAggregationService/main/imgs/Screenshot_3.png)
+<br>
+![image](https://raw.githubusercontent.com/Johnny-FTW/EventAggregationService/main/imgs/Screenshot_4.png)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
