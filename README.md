@@ -70,8 +70,12 @@ Main system features:
 
 * [![Python][Python.org]][Python-url]
 * [![Django][Django.com]][Django-url]
+* [![HTML][HTML.com]][HTML-url]
+* [![CSS][CSS.com]][CSS-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+* [![JS][JS.com]][JS-url]
 * [![JQuery][JQuery.com]][JQuery-url]
+* [![SQL][SQL.com]][SQL-url]
 
 General Guidelines:
 * Website development using Django and Django REST Framework as an API.
@@ -155,12 +159,23 @@ Project Link: [https://github.com/Johnny-FTW/EventAggregationService](https://gi
 [Django.com]: https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white
 [Django-url]: https://www.djangoproject.com/
 
+[HTML.com]: https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white
+[HTML-url]: https://https://html.com//
+
+[CSS.com]: https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white
+[CSS-url]: https://www.css3.com/
 
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
 
+[JS.com]: https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black
+[JS-url]: https://www.javascript.com/
+
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
+
+[SQL.com]: https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white
+[SQL-url]: https://www.sqlite.org/index.html
 
 
 [contributors-shield]: https://img.shields.io/github/contributors/Johnny-FTW/EventAggregationService.svg?style=for-the-badge
